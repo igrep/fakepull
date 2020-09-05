@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE ConstraintKinds            #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -28,6 +29,10 @@ import           Control.Monad.RWS.Class    (MonadRWS, MonadReader, MonadState,
 import           Control.Monad.State.Strict (StateT, get, put, runStateT)
 import           Control.Monad.Trans        (MonadTrans)
 import           Data.Functor.Identity      (Identity, runIdentity)
+
+#if __GLASGOW_HASKELL__ < 808
+import           Control.Monad.Fail         (MonadFail)
+#endif
 
 
 newtype PullT payload m a =
